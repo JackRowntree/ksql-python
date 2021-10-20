@@ -17,10 +17,10 @@ Supported Python version: 3.5+
 
 .. image:: https://pepy.tech/badge/ksql/month
   :target: https://pepy.tech/project/ksql/month
-  
+
 .. image:: https://img.shields.io/badge/license-MIT-yellow.svg
-  :target: https://github.com/bryanyang0528/ksql-python/blob/master/LICENSE  
-  
+  :target: https://github.com/bryanyang0528/ksql-python/blob/master/LICENSE
+
 Installation
 ------------
 
@@ -118,7 +118,7 @@ It will execute sql query and keep listening streaming data.
 This command returns a generator. It can be printed e.g. by reading its values via `next(query)` or a for loop. Here is a complete example:
 
 .. code:: python
-    
+
   from ksql import KSQLAPI
   client = KSQLAPI('http://localhost:8088')
   query = client.query('select * from table1')
@@ -158,6 +158,14 @@ Provide the ``queryId`` returned from the ``query`` call.
 .. code:: python
 
     client.close_query("44d8413c-0018-423d-b58f-3f2064b9a312")
+
+Query Options
+^^^^^^^^^^^^^
+If you want to change `ksql properties <https://docs.confluent.io/5.0.4/ksql/docs/installation/server-config/config-reference.html>`_ , such as ``ksql.auto.offset.reset`` or ``ksql.query.pull.table.scan.enabled``, use the ``stream_properties`` parameter:
+
+.. code:: python
+
+    client.query("select * from table1", stream_properties = {'ksql.query.pull.table.scan.enabled':'true'}
 
 Insert rows into a Stream with HTTP/2
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
